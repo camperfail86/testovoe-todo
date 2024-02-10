@@ -1,0 +1,46 @@
+{
+  "todos": [
+    {
+      "id": "10",
+      "title": "Сделать",
+      "items": [
+        {
+          "id": 1,
+          "title": "first"
+        },
+        {
+          "id": 2,
+          "title": "second"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "title": "В процессе",
+      "items": [
+        {
+          "id": 3,
+          "title": "sdelal"
+        },
+        {
+          "id": 4,
+          "title": "toje sdelal"
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "title": "Выполнено",
+      "items": [
+        {
+          "id": 5,
+          "title": "hello"
+        },
+        {
+          "id": 6,
+          "title": "bye"
+        }
+      ]
+    }
+  ]
+}
