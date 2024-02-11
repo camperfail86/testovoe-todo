@@ -28,7 +28,6 @@ export const FullInput = memo(() => {
                 setError(false);
                 create(title)
                 setTitle('')
-                // props.callback(title)
             } else {
                 setError(true)
             }

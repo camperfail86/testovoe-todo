@@ -11,10 +11,8 @@ type Change = {
     id: string
 }
 
-
 export async function fetchTodos() {
     const res = await fetch(`${BASE}`)
-
     return res.json()
 }
 

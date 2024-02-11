@@ -6,6 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import {changeState, deleteItem, fetchTodos} from "../../shared/todolist-api/todolist-api.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
+export type Item = {
+    id: string;
+    title: string;
+    state: string;
+}
+
+export type Boards = {
+    todos: Item[]
+}
 
 export const TodolistList = () => {
     const {data: boards, isLoading} = useQuery({
@@ -27,22 +36,23 @@ export const TodolistList = () => {
         },
     })
 
-    // const [currentBoard, setCurrentBoard] = useState<any>()
-    const [currentItem, setCurrentItem] = useState<any>()
+    const [currentItem, setCurrentItem] = useState<Item>()
 
     const dragOverHandler = (e: DragEvent<HTMLLIElement>) => {
         e.preventDefault()
     }
-    const dragStartHandler = (board: any, item: any) => {
-        // setCurrentBoard(board)
+    const dragStartHandler = (item: Item) => {
         setCurrentItem(item)
     }
     const dropHandler = (e: DragEvent<HTMLLIElement>) => {
         e.preventDefault();
     };
 
-    const dropCardHandler = (e: any, targetBoard: any) => {
-        change({state: targetBoard, id: currentItem.id})
+    const dropCardHandler = (e: DragEvent<HTMLUListElement>, targetBoard: string) => {
+        e.preventDefault()
+        if (currentItem) {
+            change({state: targetBoard, id: currentItem.id})
+        }
     };
 
     const deleteTask = (itemId: string) => {
@@ -63,10 +73,10 @@ export const TodolistList = () => {
                 onDrop={(e)=>dropCardHandler(e, 'start')}
                 className='columns'>
                 <h3>Сделать</h3>
-                {boards.map(b => b.state === 'start' ?
+                {boards.map((b: Item) => b.state === 'start' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={() => dragStartHandler('start', b)}
+                        onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
@@ -76,10 +86,10 @@ export const TodolistList = () => {
             <ul className='columns'
                 onDrop={(e)=>dropCardHandler(e, 'inProgress')}>
                 <h3>В процессе</h3>
-                {boards.map(b => b.state === 'inProgress' ?
+                {boards.map((b: Item) => b.state === 'inProgress' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={() => dragStartHandler('start', b)}
+                        onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
@@ -89,10 +99,10 @@ export const TodolistList = () => {
             <ul className='columns'
                 onDrop={(e)=>dropCardHandler(e, 'fullfiled')}>
                 <h3>Выполнено</h3>
-                {boards.map(b => b.state === 'fullfiled' ?
+                {boards.map((b: Item) => b.state === 'fullfiled' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={() => dragStartHandler('start', b)}
+                        onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>

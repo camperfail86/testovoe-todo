@@ -5,7 +5,6 @@ import {editTitle} from "../../shared/todolist-api/todolist-api.ts";
 
 export type editableSpanProps = {
     title: string;
-    // editSpan: (title: string) => void;
     id: string
 };
 export const EditableSpan = memo((props: editableSpanProps) => {

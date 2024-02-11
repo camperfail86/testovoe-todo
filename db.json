@@ -2,7 +2,7 @@
   "todos": [
     {
       "id": "3",
-      "title": "sdelal",
+      "title": "sdelals",
       "state": "fullfiled"
     },
     {
@@ -28,11 +28,16 @@
     {
       "id": "520d6c7d-2ba6-47fd-9f39-dd4bfddb9db7",
       "title": "фывфыв123",
-      "state": "inProgress"
+      "state": "fullfiled"
     },
     {
       "id": "1160b604-d2c1-4ded-9c3e-6b4bfcedcb04",
       "title": "456",
+      "state": "start"
+    },
+    {
+      "id": "6062f3c8-c8f5-4104-afc7-ce4a37c37c43",
+      "title": "2345",
       "state": "inProgress"
     }
   ]
