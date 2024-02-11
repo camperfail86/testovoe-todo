@@ -18,10 +18,18 @@ body {
 
 .columns {
     display: flex;
-    gap: 40px
+    flex-direction: column;
+    gap: 40px;
+    list-style: none;
+    outline: 2px solid black;
+    padding: 0 30px 30px 30px;
 }
 
 .todolist {
     max-width: 1024px;
     margin: 0 auto
+}
+
+.todolists {
+    display: flex
 }

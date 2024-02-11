@@ -1,46 +1,39 @@
 {
   "todos": [
     {
-      "id": "10",
-      "title": "Сделать",
-      "items": [
-        {
-          "id": 1,
-          "title": "first"
-        },
-        {
-          "id": 2,
-          "title": "second"
-        }
-      ]
+      "id": "3",
+      "title": "sdelal",
+      "state": "inProgress"
     },
     {
-      "id": "20",
-      "title": "В процессе",
-      "items": [
-        {
-          "id": 3,
-          "title": "sdelal"
-        },
-        {
-          "id": 4,
-          "title": "toje sdelal"
-        }
-      ]
+      "id": "5",
+      "title": "hello",
+      "state": "fullfiled"
     },
     {
-      "id": "30",
-      "title": "Выполнено",
-      "items": [
-        {
-          "id": 5,
-          "title": "hello"
-        },
-        {
-          "id": 6,
-          "title": "bye"
-        }
-      ]
+      "id": "999",
+      "title": "asd",
+      "state": "start"
+    },
+    {
+      "id": "f0eb1088-6db9-4fd9-9e34-d723b643fc92",
+      "title": "123",
+      "state": "start"
+    },
+    {
+      "id": "ea042921-c983-4932-a60c-c5ab9052df28",
+      "title": "asdasd",
+      "state": "start"
+    },
+    {
+      "id": "bd95be4e-77f5-42f1-934c-b8a1400070b0",
+      "title": "sdasdasd",
+      "state": "start"
+    },
+    {
+      "id": "6b35ca23-43e8-4bec-b1fa-81df1445a9d5",
+      "title": "qweqweqweqwewqew",
+      "state": "start"
     }
   ]
 }

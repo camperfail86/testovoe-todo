@@ -1,15 +1,25 @@
-import React, { useState, FocusEvent, ChangeEvent, memo } from "react";
+import { useState, FocusEvent, ChangeEvent, memo } from "react";
 import TextField from "@mui/material/TextField";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {editTitle} from "../../shared/todolist-api/todolist-api.ts";
 
 export type editableSpanProps = {
     title: string;
-    editSpan: (title: string) => void;
+    // editSpan: (title: string) => void;
+    id: string
 };
 export const EditableSpan = memo((props: editableSpanProps) => {
+    const client = useQueryClient()
+    const {mutate: editTaskTitle} = useMutation({
+        mutationFn: editTitle,
+        onSuccess: ()=>{
+            client.invalidateQueries({queryKey: ['todos']})
+        }
+    })
     const [editMode, setEditMode] = useState(false);
     const [title, setTitle] = useState("");
     const editSpanCLick = (e: FocusEvent<HTMLInputElement>) => {
-        props.editSpan(e.currentTarget.value);
+        editTaskTitle({ title: e.currentTarget.value, id: props.id})
         setEditMode(false);
     };
     const onDblClick = () => {

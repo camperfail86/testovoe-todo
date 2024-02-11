@@ -13,26 +13,22 @@ const btnStyle = {
     backgroundColor: "black",
 };
 
-type FullInput = {
-    callback: (title: string)=>void
-}
-
-export const FullInput = memo((props: FullInput) => {
-    // const client = useQueryClient()
-    // const {mutate: create} = useMutation({
-    //     mutationFn: addTask,
-    //     onSuccess: ()=>{
-    //         client.invalidateQueries({queryKey: ['todos']})
-    //     }
-    // })
+export const FullInput = memo(() => {
+    const client = useQueryClient()
+    const {mutate: create} = useMutation({
+        mutationFn: addTask,
+        onSuccess: ()=>{
+            client.invalidateQueries({queryKey: ['todos']})
+        }
+    })
     const [error, setError] = useState(false);
     const [title, setTitle] = useState("");
     const onClickHandler = () => {
             if (title.trim() !== "") {
                 setError(false);
-                // create(title)
+                create(title)
                 setTitle('')
-                props.callback(title)
+                // props.callback(title)
             } else {
                 setError(true)
             }
