@@ -6,7 +6,7 @@ import { FullInput } from "../../widgets/components/FullInput.tsx";
 import {EditableSpan} from "../../widgets/components/EditableSpan.tsx";
 // import {ButtonDelete} from "../../widgets/components/ButtonDelete.tsx";
 import { useQuery } from "@tanstack/react-query";
-import {deleteItem, fetchTodos} from "../../shared/todolist-api/todolist-api.ts";
+import {changeState, deleteItem, fetchTodos} from "../../shared/todolist-api/todolist-api.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 // import IconButton from "@mui/material/IconButton/IconButton";
 
@@ -22,7 +22,13 @@ export const TodolistList = () => {
     const {mutate: deleteElem} = useMutation({
         mutationFn: deleteItem,
         onSuccess: () => {
-            client.invalidateQueries({queryKey: ['todos']}).then((data) => console.log(data))
+            client.invalidateQueries({queryKey: ['todos']})
+        },
+    })
+    const {mutate: change} = useMutation({
+        mutationFn: changeState,
+        onSuccess: () => {
+            client.invalidateQueries({queryKey: ['todos']})
         },
     })
 
@@ -46,36 +52,47 @@ export const TodolistList = () => {
     const dropHandler = (e: DragEvent<HTMLHeadingElement>, targetBoard: any, targetItem: any) => {
         e.preventDefault();
 
-        const updatedBoards = boards.map((b) => {
-            if (b.id === currentBoard.id) {
-                const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
-                return { ...b, items: updatedItems };
-            }
-            if (b.id === targetBoard.id) {
-                const updatedTargetItems = [...targetBoard.items]; // Создаем копию массива targetBoard.items
-                const dropIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
-                updatedTargetItems.splice(dropIndex + 1, 0, currentItem);
+        // deleteElem(targetItem.id)
 
-                return { ...b, items: updatedTargetItems };
-            }
-            return b;
-        });
+        // const updatedBoards = boards.map((b) => {
+            // if (b.id === currentBoard.id) {
+            //     const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
+            //     return { ...b, items: updatedItems };
+            // }
+            // if (b.id === targetBoard.id) {
+            //     const updatedTargetItems = [...targetBoard.items]; // Создаем копию массива targetBoard.items
+            //     const dropIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
+            //     updatedTargetItems.splice(dropIndex + 1, 0, currentItem);
+            //
+            //     return { ...b, items: updatedTargetItems };
+            // }
+            // if (b.state === targetBoard) {
+            //     const updatedTargetItems = [...targetBoard.items]; // Создаем копию массива targetBoard.items
+            //     const dropIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
+            //     updatedTargetItems.splice(dropIndex + 1, 0, currentItem);
+            //
+            //     return { ...b, items: updatedTargetItems };
+            // }
+        //     return b;
+        // });
 
         // setBoards(updatedBoards);
     };
 
-    const dropCardHandler = (targetBoard: any) => {
-        const updatedBoards = boards.map((b) => {
-            if (b.id === currentBoard.id) {
-                const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
-                return { ...b, items: updatedItems };
-            }
-            if (b.id === targetBoard.id) {
-                return { ...b, items: [...targetBoard.items, currentItem] };
-            }
-            return b;
-        });
-
+    const dropCardHandler = (e: any, targetBoard: any) => {
+        // const updatedBoards = boards.map((b) => {
+        //     if (b.id === currentBoard.id) {
+        //         const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
+        //         return { ...b, items: updatedItems };
+        //     }
+        //     if (b.id === targetBoard.id) {
+        //         return { ...b, items: [...targetBoard.items, currentItem] };
+        //     }
+        //     return b;
+        // });
+        // console.log(targetBoard)
+        // console.log(currentBoard)
+        change({state: targetBoard, id: currentItem.id})
         // setBoards(updatedBoards);
     };
     // boardId: number,
@@ -116,26 +133,44 @@ export const TodolistList = () => {
             </div>
             <div className='todolists'>
             <ul
+                onDrop={(e)=>dropCardHandler(e, 'start')}
                 className='columns'>
                 <h3>Сделать</h3>
                 {boards.map(b => b.state === 'start' ?
-                    <li draggable={true}>
+                    <li draggable={true}
+                        onDragOver={(e) => dragOverHandler(e)}
+                        onDragStart={(e) => dragStartHandler('start', b)}
+                        // onDragEnd={(e) => dragEndHandler(e)}
+                        onDrop={(e) => dropHandler(e, 'start', b)}
+                    >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
                         <button onClick={()=>deleteTask(b.id)}>x</button>
                 </li> : null)}
             </ul>
-            <ul className='columns'>
+            <ul className='columns'
+                onDrop={(e)=>dropCardHandler(e, 'inProgress')}>
                 <h3>В процессе</h3>
                 {boards.map(b => b.state === 'inProgress' ?
-                    <li draggable={true}>
+                    <li draggable={true}
+                        onDragOver={(e) => dragOverHandler(e)}
+                        onDragStart={(e) => dragStartHandler('start', b)}
+                        // onDragEnd={(e) => dragEndHandler(e)}
+                        onDrop={(e) => dropHandler(e, 'start', b)}
+                    >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
                         <button onClick={()=>deleteTask(b.id)}>x</button>
                 </li> : null)}
             </ul>
-            <ul className='columns'>
+            <ul className='columns'
+                onDrop={(e)=>dropCardHandler(e, 'fullfiled')}>
                 <h3>Выполнено</h3>
                 {boards.map(b => b.state === 'fullfiled' ?
-                    <li draggable={true}>
+                    <li draggable={true}
+                        onDragOver={(e) => dragOverHandler(e)}
+                        onDragStart={(e) => dragStartHandler('start', b)}
+                        // onDragEnd={(e) => dragEndHandler(e)}
+                        onDrop={(e) => dropHandler(e, 'start', b)}
+                    >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
                         <button onClick={()=>deleteTask(b.id)}>x</button>
                 </li> : null)}

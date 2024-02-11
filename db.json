@@ -11,11 +11,6 @@
       "state": "fullfiled"
     },
     {
-      "id": "999",
-      "title": "asd",
-      "state": "start"
-    },
-    {
       "id": "f0eb1088-6db9-4fd9-9e34-d723b643fc92",
       "title": "123",
       "state": "start"
@@ -28,12 +23,12 @@
     {
       "id": "bd95be4e-77f5-42f1-934c-b8a1400070b0",
       "title": "sdasdasd",
-      "state": "start"
+      "state": "inProgress"
     },
     {
       "id": "6b35ca23-43e8-4bec-b1fa-81df1445a9d5",
       "title": "qweqweqweqwewqew",
-      "state": "start"
+      "state": "inProgress"
     }
   ]
 }
