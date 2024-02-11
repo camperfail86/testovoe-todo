@@ -3,11 +3,6 @@
     {
       "id": "3",
       "title": "sdelal",
-      "state": "inProgress"
-    },
-    {
-      "id": "5",
-      "title": "hello",
       "state": "fullfiled"
     },
     {
@@ -18,16 +13,26 @@
     {
       "id": "ea042921-c983-4932-a60c-c5ab9052df28",
       "title": "asdasd",
-      "state": "start"
+      "state": "inProgress"
     },
     {
       "id": "bd95be4e-77f5-42f1-934c-b8a1400070b0",
-      "title": "sdasdasd",
-      "state": "inProgress"
+      "title": "sdasdas",
+      "state": "start"
     },
     {
       "id": "6b35ca23-43e8-4bec-b1fa-81df1445a9d5",
       "title": "qweqweqweqwewqew",
+      "state": "fullfiled"
+    },
+    {
+      "id": "520d6c7d-2ba6-47fd-9f39-dd4bfddb9db7",
+      "title": "фывфыв123",
+      "state": "inProgress"
+    },
+    {
+      "id": "1160b604-d2c1-4ded-9c3e-6b4bfcedcb04",
+      "title": "456",
       "state": "inProgress"
     }
   ]

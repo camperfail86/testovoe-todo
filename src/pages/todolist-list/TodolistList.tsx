@@ -1,14 +1,10 @@
-import { useEffect, useState, DragEvent } from "react";
-// import Container from "@mui/material/Container";
-// import Grid from "@mui/material/Grid";
+import { useState, DragEvent } from "react";
 import { FullInput } from "../../widgets/components/FullInput.tsx";
-// import EditIcon from '@mui/icons-material/Edit';
 import {EditableSpan} from "../../widgets/components/EditableSpan.tsx";
-// import {ButtonDelete} from "../../widgets/components/ButtonDelete.tsx";
+import {ButtonDelete} from "../../widgets/components/ButtonDelete.tsx";
 import { useQuery } from "@tanstack/react-query";
 import {changeState, deleteItem, fetchTodos} from "../../shared/todolist-api/todolist-api.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-// import IconButton from "@mui/material/IconButton/IconButton";
 
 
 export const TodolistList = () => {
@@ -16,7 +12,6 @@ export const TodolistList = () => {
         queryFn: ()=>fetchTodos(),
         queryKey: ['todos']
     })
-    // const [boards, setBoards] = useState<any[]>([]);
 
     const client = useQueryClient()
     const {mutate: deleteElem} = useMutation({
@@ -32,93 +27,25 @@ export const TodolistList = () => {
         },
     })
 
-    useEffect(() => {
-        // if (!isLoading && data) {
-        //     setBoards(data)
-        // }
-    }, [isLoading]);
-
-
-    const [currentBoard, setCurrentBoard] = useState<any>()
+    // const [currentBoard, setCurrentBoard] = useState<any>()
     const [currentItem, setCurrentItem] = useState<any>()
 
-    const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
+    const dragOverHandler = (e: DragEvent<HTMLLIElement>) => {
         e.preventDefault()
     }
     const dragStartHandler = (board: any, item: any) => {
-        setCurrentBoard(board)
+        // setCurrentBoard(board)
         setCurrentItem(item)
     }
-    const dropHandler = (e: DragEvent<HTMLHeadingElement>, targetBoard: any, targetItem: any) => {
+    const dropHandler = (e: DragEvent<HTMLLIElement>) => {
         e.preventDefault();
-
-        // deleteElem(targetItem.id)
-
-        // const updatedBoards = boards.map((b) => {
-            // if (b.id === currentBoard.id) {
-            //     const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
-            //     return { ...b, items: updatedItems };
-            // }
-            // if (b.id === targetBoard.id) {
-            //     const updatedTargetItems = [...targetBoard.items]; // Создаем копию массива targetBoard.items
-            //     const dropIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
-            //     updatedTargetItems.splice(dropIndex + 1, 0, currentItem);
-            //
-            //     return { ...b, items: updatedTargetItems };
-            // }
-            // if (b.state === targetBoard) {
-            //     const updatedTargetItems = [...targetBoard.items]; // Создаем копию массива targetBoard.items
-            //     const dropIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
-            //     updatedTargetItems.splice(dropIndex + 1, 0, currentItem);
-            //
-            //     return { ...b, items: updatedTargetItems };
-            // }
-        //     return b;
-        // });
-
-        // setBoards(updatedBoards);
     };
 
     const dropCardHandler = (e: any, targetBoard: any) => {
-        // const updatedBoards = boards.map((b) => {
-        //     if (b.id === currentBoard.id) {
-        //         const updatedItems = currentBoard.items.filter((item) => item.id !== currentItem.id);
-        //         return { ...b, items: updatedItems };
-        //     }
-        //     if (b.id === targetBoard.id) {
-        //         return { ...b, items: [...targetBoard.items, currentItem] };
-        //     }
-        //     return b;
-        // });
-        // console.log(targetBoard)
-        // console.log(currentBoard)
         change({state: targetBoard, id: currentItem.id})
-        // setBoards(updatedBoards);
     };
-    // boardId: number,
-
-
-    // const addTask = (title: string) => {
-    //     console.log(title)
-    //     const newTask = {id: 123123, title: title}
-    //     const updatedBoards = boards.map((b) => {
-    //         if (b.id === '10') {
-    //             return { ...b, items: [...b.items, newTask] };
-    //         }
-    //         return b;
-    //     });
-    //     setBoards(updatedBoards)
-    // }
 
     const deleteTask = (itemId: string) => {
-        // const updatedBoards = boards.map((b) => {
-        //     if (b.id === boardId) {
-        //         const updatedItems = b.items.filter((item) => item.id !== itemId);
-        //         return { ...b, items: updatedItems };
-        //     }
-        //     return b;
-        // });
-        // setBoards(updatedBoards)
         deleteElem(itemId)
     }
 
@@ -139,12 +66,11 @@ export const TodolistList = () => {
                 {boards.map(b => b.state === 'start' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={(e) => dragStartHandler('start', b)}
-                        // onDragEnd={(e) => dragEndHandler(e)}
-                        onDrop={(e) => dropHandler(e, 'start', b)}
+                        onDragStart={() => dragStartHandler('start', b)}
+                        onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
-                        <button onClick={()=>deleteTask(b.id)}>x</button>
+                        <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>
             <ul className='columns'
@@ -153,12 +79,11 @@ export const TodolistList = () => {
                 {boards.map(b => b.state === 'inProgress' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={(e) => dragStartHandler('start', b)}
-                        // onDragEnd={(e) => dragEndHandler(e)}
-                        onDrop={(e) => dropHandler(e, 'start', b)}
+                        onDragStart={() => dragStartHandler('start', b)}
+                        onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
-                        <button onClick={()=>deleteTask(b.id)}>x</button>
+                        <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>
             <ul className='columns'
@@ -167,76 +92,14 @@ export const TodolistList = () => {
                 {boards.map(b => b.state === 'fullfiled' ?
                     <li draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
-                        onDragStart={(e) => dragStartHandler('start', b)}
-                        // onDragEnd={(e) => dragEndHandler(e)}
-                        onDrop={(e) => dropHandler(e, 'start', b)}
+                        onDragStart={() => dragStartHandler('start', b)}
+                        onDrop={(e) => dropHandler(e)}
                     >
                         <EditableSpan id={b.id} title={b.title}></EditableSpan>
-                        <button onClick={()=>deleteTask(b.id)}>x</button>
+                        <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>
             </div>
         </div>
     );
 };
-
-//{
-//  "todos": [
-//    {
-//      "id": "10",
-//      "title": "Сделать",
-//      "items": [
-//        {
-//          "id": 1,
-//          "title": "first"
-//        },
-//        {
-//          "id": 2,
-//          "title": "second"
-//        }
-//      ]
-//    },
-//    {
-//      "id": "20",
-//      "title": "В процессе",
-//      "items": [
-//        {
-//          "id": 3,
-//          "title": "sdelal"
-//        },
-//        {
-//          "id": 4,
-//          "title": "toje sdelal"
-//        }
-//      ]
-//    },
-//    {
-//      "id": "30",
-//      "title": "Выполнено",
-//      "items": [
-//        {
-//          "id": 5,
-//          "title": "hello"
-//        },
-//        {
-//          "id": 6,
-//          "title": "bye"
-//        }
-//      ]
-//    }
-//  ]
-//}
-
-// export interface Todos {
-//     todos: ObjectTodos[];
-// }
-// export interface ObjectTodosItems {
-//     id: number;
-//     title: string;
-// }
-// export interface ObjectTodos {
-//     id: number;
-//     title: string;
-//     items: ObjectTodosItems[];
-// }
-
