@@ -2,7 +2,7 @@ import { ChangeEvent, memo, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {addTask} from "../../shared/todolist-api/todolist-api.ts";
+import {addTask} from "../shared/todolist-api/todolist-api.ts";
 
 const btnStyle = {
     maxWidth: "40px",

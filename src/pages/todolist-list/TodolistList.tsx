@@ -1,7 +1,7 @@
 import { useState, DragEvent } from "react";
-import { FullInput } from "../../widgets/components/FullInput.tsx";
-import {EditableSpan} from "../../widgets/components/EditableSpan.tsx";
-import {ButtonDelete} from "../../widgets/components/ButtonDelete.tsx";
+import { FullInput } from "../../entities/FullInput.tsx";
+import {EditableSpan} from "../../entities/EditableSpan.tsx";
+import {ButtonDelete} from "../../entities/ButtonDelete.tsx";
 import { useQuery } from "@tanstack/react-query";
 import {changeState, deleteItem, fetchTodos} from "../../shared/todolist-api/todolist-api.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";

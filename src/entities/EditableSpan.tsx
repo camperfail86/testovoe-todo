@@ -1,7 +1,7 @@
 import {useState, FocusEvent, ChangeEvent, memo, ComponentPropsWithoutRef} from "react";
 import TextField from "@mui/material/TextField";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {editTitle} from "../../shared/todolist-api/todolist-api.ts";
+import {editTitle} from "../shared/todolist-api/todolist-api.ts";
 
 export type editableSpanProps = {
     title: string;
