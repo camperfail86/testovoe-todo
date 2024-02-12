@@ -74,12 +74,13 @@ export const TodolistList = () => {
                 className='columns'>
                 <h3>Сделать</h3>
                 {boards.map((b: Item) => b.state === 'start' ?
-                    <li draggable={true}
+                    <li className={'item'}
+                        draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
                         onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
-                        <EditableSpan id={b.id} title={b.title}></EditableSpan>
+                        <EditableSpan className='item-text' id={b.id} title={b.title}></EditableSpan>
                         <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>
@@ -87,12 +88,13 @@ export const TodolistList = () => {
                 onDrop={(e)=>dropCardHandler(e, 'inProgress')}>
                 <h3>В процессе</h3>
                 {boards.map((b: Item) => b.state === 'inProgress' ?
-                    <li draggable={true}
+                    <li className={'item'}
+                        draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
                         onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
-                        <EditableSpan id={b.id} title={b.title}></EditableSpan>
+                        <EditableSpan className='item' id={b.id} title={b.title}></EditableSpan>
                         <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>
@@ -100,12 +102,13 @@ export const TodolistList = () => {
                 onDrop={(e)=>dropCardHandler(e, 'fullfiled')}>
                 <h3>Выполнено</h3>
                 {boards.map((b: Item) => b.state === 'fullfiled' ?
-                    <li draggable={true}
+                    <li className={'item'}
+                        draggable={true}
                         onDragOver={(e) => dragOverHandler(e)}
                         onDragStart={() => dragStartHandler(b)}
                         onDrop={(e) => dropHandler(e)}
                     >
-                        <EditableSpan id={b.id} title={b.title}></EditableSpan>
+                        <EditableSpan className='item' id={b.id} title={b.title}></EditableSpan>
                         <ButtonDelete callback={()=>deleteTask(b.id)}/>
                 </li> : null)}
             </ul>

@@ -1,4 +1,4 @@
-import { useState, FocusEvent, ChangeEvent, memo } from "react";
+import {useState, FocusEvent, ChangeEvent, memo, ComponentPropsWithoutRef} from "react";
 import TextField from "@mui/material/TextField";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {editTitle} from "../../shared/todolist-api/todolist-api.ts";
@@ -6,7 +6,7 @@ import {editTitle} from "../../shared/todolist-api/todolist-api.ts";
 export type editableSpanProps = {
     title: string;
     id: string
-};
+} & ComponentPropsWithoutRef<'span'>
 export const EditableSpan = memo((props: editableSpanProps) => {
     const client = useQueryClient()
     const {mutate: editTaskTitle} = useMutation({
@@ -39,6 +39,6 @@ export const EditableSpan = memo((props: editableSpanProps) => {
             variant="standard"
         />
     ) : (
-        <span onDoubleClick={onDblClick}>{props.title}</span>
+        <span className={props.className} onDoubleClick={onDblClick}>{props.title}</span>
     );
 });

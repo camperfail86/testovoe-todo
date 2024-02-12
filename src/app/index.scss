@@ -19,7 +19,7 @@ body {
 .columns {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    //gap: 40px;
     list-style: none;
     outline: 2px solid black;
     padding: 0 30px 30px 30px;
@@ -32,4 +32,19 @@ body {
 
 .todolists {
     display: flex
+}
+
+.item {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.item-text {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8
+    }
 }
