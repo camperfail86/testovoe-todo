@@ -1,3 +1,11 @@
+# Тестовое задание (ToDO)
+
+Для этого задания я сделал свой json-server, т.к. не откуда было брать данные для React - query.
+
+Для запуска приложения нужно запустить скрипт start:server, затем start:app.
+
+Чтобы редактировать title, нужно 2 раза нажать по нему, после нажать куда то вне его. 
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
